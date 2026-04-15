@@ -2,6 +2,7 @@ import type { LogEntry } from '../../server/db/schema'
 
 export interface LogEntryWithTopic extends LogEntry {
   topicTitle: string | null
+  topicTitlePt: string | null
   topicSlug: string | null
 }
 

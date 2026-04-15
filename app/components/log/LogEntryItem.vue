@@ -1,9 +1,16 @@
 <script setup lang="ts">
 import type { LogEntryWithTopic } from '~/composables/useLog'
 
+const { locale } = useI18n()
+
 defineProps<{
   entry: LogEntryWithTopic
 }>()
+
+function localTopicTitle(entry: LogEntryWithTopic): string | null {
+  if (locale.value === 'pt-BR' && entry.topicTitlePt) return entry.topicTitlePt
+  return entry.topicTitle
+}
 </script>
 
 <template>
@@ -18,7 +25,7 @@ defineProps<{
         :to="`/topic/${entry.topicSlug}`"
         class="text-xs font-mono text-gruvbox-blue hover:text-gruvbox-aqua block mb-1"
       >
-        {{ entry.topicTitle }}
+        {{ localTopicTitle(entry) }}
       </NuxtLink>
       <p v-if="entry.summary" class="text-sm text-gruvbox-fg2">{{ entry.summary }}</p>
     </div>

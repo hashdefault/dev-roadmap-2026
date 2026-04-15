@@ -26,6 +26,7 @@ export default defineEventHandler((event) => {
     .select({
       entry: logEntries,
       topicTitle: topics.title,
+      topicTitlePt: topics.titlePt,
       topicSlug: topics.slug,
     })
     .from(logEntries)
@@ -37,6 +38,7 @@ export default defineEventHandler((event) => {
   return entries.map(e => ({
     ...e.entry,
     topicTitle: e.topicTitle,
+    topicTitlePt: e.topicTitlePt,
     topicSlug: e.topicSlug,
   }))
 })
