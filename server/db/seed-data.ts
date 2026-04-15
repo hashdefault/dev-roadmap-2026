@@ -8,7 +8,9 @@ export interface SeedResource {
 export interface SeedTopic {
   slug: string
   title: string
+  titlePt: string
   description: string
+  descriptionPt: string
   depth: 'broad' | 'deep' | 'optional'
   estimatedHours: number | null
   priority: number
@@ -18,7 +20,9 @@ export interface SeedTopic {
 export interface SeedPillar {
   slug: string
   title: string
+  titlePt: string
   description: string
+  descriptionPt: string
   color: string
   topics: SeedTopic[]
 }
@@ -27,13 +31,17 @@ const seedData: SeedPillar[] = [
   {
     slug: 'mental-model',
     title: 'Mental Model',
+    titlePt: 'Modelo Mental',
     description: 'Foundational ways of thinking about software systems',
+    descriptionPt: 'Formas fundamentais de pensar sobre sistemas de software',
     color: '#fabd2f',
     topics: [
       {
         slug: 'systems-thinking',
         title: 'Systems thinking',
+        titlePt: 'Pensamento sistêmico',
         description: 'Understand the path from keypress to pixel. Trace how data flows through the entire stack.',
+        descriptionPt: 'Entenda o caminho do pressionamento de tecla ao pixel. Rastreie como os dados fluem por toda a stack.',
         depth: 'deep',
         estimatedHours: 40,
         priority: 4,
@@ -46,7 +54,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'reading-code',
         title: 'Reading code as a first-class skill',
+        titlePt: 'Leitura de código como habilidade primária',
         description: 'Develop the ability to read and understand unfamiliar codebases quickly.',
+        descriptionPt: 'Desenvolva a capacidade de ler e entender codebases desconhecidos rapidamente.',
         depth: 'broad',
         estimatedHours: 20,
         priority: 4,
@@ -58,7 +68,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'hypothesis-driven-debugging',
         title: 'Hypothesis-driven debugging',
+        titlePt: 'Debugging orientado por hipóteses',
         description: 'Debug systematically: form a hypothesis, design an experiment to test it, observe the result, and iterate.',
+        descriptionPt: 'Depure sistematicamente: forme uma hipótese, projete um experimento para testá-la, observe o resultado e itere.',
         depth: 'broad',
         estimatedHours: 15,
         priority: 3,
@@ -70,7 +82,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'taste-in-abstractions',
         title: 'Taste in abstractions',
+        titlePt: 'Bom gosto em abstrações',
         description: 'Develop judgment for when to abstract and when not to. Understand the cost of the wrong abstraction versus duplication.',
+        descriptionPt: 'Desenvolva julgamento sobre quando abstrair e quando não. Entenda o custo da abstração errada versus duplicação.',
         depth: 'deep',
         estimatedHours: 30,
         priority: 4,
@@ -80,18 +94,65 @@ const seedData: SeedPillar[] = [
           { type: 'video', title: 'Simple Made Easy', url: 'https://www.infoq.com/presentations/Simple-Made-Easy/', author: 'Rich Hickey' },
         ],
       },
+      {
+        slug: 'modeling-simplification',
+        title: 'Modeling & simplification',
+        titlePt: 'Modelagem & simplificação',
+        description: 'Reduce problems to known patterns (queue, cache, pipeline, state machine). Prefer simpler architectures; resist unnecessary abstraction — especially from AI-generated code.',
+        descriptionPt: 'Reduza problemas a padrões conhecidos (fila, cache, pipeline, máquina de estados). Prefira arquiteturas mais simples; resista à abstração desnecessária — especialmente de código gerado por IA.',
+        depth: 'deep',
+        estimatedHours: 30,
+        priority: 5,
+        resources: [
+          { type: 'book', title: 'A Philosophy of Software Design', url: null, author: 'John Ousterhout' },
+          { type: 'article', title: 'Design Patterns', url: null, author: 'Gang of Four' },
+          { type: 'video', title: 'Simple Made Easy', url: 'https://www.infoq.com/presentations/Simple-Made-Easy/', author: 'Rich Hickey' },
+        ],
+      },
+      {
+        slug: 'invariants-correctness',
+        title: 'Invariants & correctness',
+        titlePt: 'Invariantes & corretude',
+        description: 'Define non-negotiable properties early (e.g., "no data loss", "idempotent operations"). Use invariants to guide debugging and validate AI output.',
+        descriptionPt: 'Defina propriedades inegociáveis cedo (ex: "sem perda de dados", "operações idempotentes"). Use invariantes para guiar a depuração e validar a saída da IA.',
+        depth: 'deep',
+        estimatedHours: 25,
+        priority: 5,
+        resources: [
+          { type: 'book', title: 'Program Proofs', url: null, author: 'K. Rustan M. Leino' },
+          { type: 'article', title: 'Designing for Correctness', url: null, author: null },
+        ],
+      },
+      {
+        slug: 'failure-modes-thinking',
+        title: 'Failure modes thinking',
+        titlePt: 'Pensamento sobre modos de falha',
+        description: 'Go beyond "how it works" to "how it breaks". Network latency, packet loss, partial failures in distributed systems, backpressure and timeouts.',
+        descriptionPt: 'Vá além de "como funciona" para "como quebra". Latência de rede, perda de pacotes, falhas parciais em sistemas distribuídos, backpressure e timeouts.',
+        depth: 'deep',
+        estimatedHours: 30,
+        priority: 4,
+        resources: [
+          { type: 'book', title: 'Release It!', url: null, author: 'Michael T. Nygard' },
+          { type: 'article', title: 'How Complex Systems Fail', url: 'https://how.complexsystems.fail/', author: 'Richard Cook' },
+        ],
+      },
     ],
   },
   {
     slug: 'core-broad',
     title: 'Core Knowledge: Broad Layer',
+    titlePt: 'Conhecimento Base: Camada Ampla',
     description: 'Foundational technical skills every developer needs',
+    descriptionPt: 'Habilidades técnicas fundamentais que todo desenvolvedor precisa',
     color: '#83a598',
     topics: [
       {
         slug: 'systems-language',
         title: 'One systems language: Rust or Go',
+        titlePt: 'Uma linguagem de sistemas: Rust ou Go',
         description: 'Learn a systems-level language to understand memory management, concurrency primitives, and performance constraints.',
+        descriptionPt: 'Aprenda uma linguagem de nível de sistemas para entender gerenciamento de memória, primitivas de concorrência e restrições de performance.',
         depth: 'broad',
         estimatedHours: 80,
         priority: 5,
@@ -105,7 +166,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'scripting-language',
         title: 'One scripting language: Python or TypeScript',
+        titlePt: 'Uma linguagem de script: Python ou TypeScript',
         description: 'Achieve fluency in a high-level scripting language for rapid prototyping, automation, and glue code.',
+        descriptionPt: 'Alcance fluência em uma linguagem de script de alto nível para prototipagem rápida, automação e código de integração.',
         depth: 'broad',
         estimatedHours: 60,
         priority: 5,
@@ -118,7 +181,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'sql-fluency',
         title: 'SQL fluency beyond ORMs',
+        titlePt: 'Fluência em SQL além de ORMs',
         description: 'Indexes, query plans, denormalization. Understand what your ORM is doing under the hood.',
+        descriptionPt: 'Índices, planos de consulta, desnormalização. Entenda o que seu ORM faz por baixo dos panos.',
         depth: 'broad',
         estimatedHours: 40,
         priority: 5,
@@ -131,7 +196,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'http-dns-tls',
         title: 'HTTP, DNS, TLS fundamentals',
+        titlePt: 'Fundamentos de HTTP, DNS, TLS',
         description: 'Understand the core protocols of the web.',
+        descriptionPt: 'Entenda os protocolos fundamentais da web.',
         depth: 'broad',
         estimatedHours: 25,
         priority: 4,
@@ -144,7 +211,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'linux-shell-editor',
         title: 'Linux shell + a fast editor: neovim/helix',
+        titlePt: 'Shell Linux + um editor rápido: neovim/helix',
         description: 'Be productive in a terminal. Know your shell, your editor, and how to combine Unix tools.',
+        descriptionPt: 'Seja produtivo no terminal. Conheça seu shell, seu editor e como combinar ferramentas Unix.',
         depth: 'broad',
         estimatedHours: 50,
         priority: 5,
@@ -157,7 +226,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'git-advanced',
         title: 'Git beyond add/commit/push',
+        titlePt: 'Git além de add/commit/push',
         description: 'Rebase, bisect, reflog. Understand the DAG. Be confident recovering from any git state.',
+        descriptionPt: 'Rebase, bisect, reflog. Entenda o DAG. Tenha confiança para recuperar qualquer estado do git.',
         depth: 'broad',
         estimatedHours: 20,
         priority: 4,
@@ -169,7 +240,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'docker-compose-deep',
         title: 'Docker + compose deeply',
+        titlePt: 'Docker + compose a fundo',
         description: 'Understand images, layers, networking, volumes, multi-stage builds.',
+        descriptionPt: 'Entenda imagens, camadas, rede, volumes, builds multi-estágio.',
         depth: 'broad',
         estimatedHours: 30,
         priority: 5,
@@ -184,13 +257,17 @@ const seedData: SeedPillar[] = [
   {
     slug: 'core-deep',
     title: 'Core Knowledge: Deep Layer',
+    titlePt: 'Conhecimento Base: Camada Profunda',
     description: 'Advanced technical knowledge for deeper understanding',
+    descriptionPt: 'Conhecimento técnico avançado para um entendimento mais profundo',
     color: '#b8bb26',
     topics: [
       {
         slug: 'distributed-systems',
         title: 'Distributed systems: consensus, CAP, eventual consistency',
+        titlePt: 'Sistemas distribuídos: consenso, CAP, consistência eventual',
         description: 'Understand the fundamental challenges and trade-offs of building systems that span multiple machines.',
+        descriptionPt: 'Entenda os desafios fundamentais e trade-offs de construir sistemas que abrangem múltiplas máquinas.',
         depth: 'deep',
         estimatedHours: 60,
         priority: 4,
@@ -203,7 +280,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'database-internals',
         title: 'Database internals: B-trees, LSM trees, MVCC',
+        titlePt: 'Internos de banco de dados: B-trees, LSM trees, MVCC',
         description: 'Understand how databases actually store, index, and retrieve data.',
+        descriptionPt: 'Entenda como bancos de dados realmente armazenam, indexam e recuperam dados.',
         depth: 'deep',
         estimatedHours: 50,
         priority: 5,
@@ -216,7 +295,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'ai-engineering',
         title: 'AI engineering: deployment, evaluation, RAG, prompt pipelines',
+        titlePt: 'Engenharia de IA: deploy, avaliação, RAG, pipelines de prompt',
         description: 'Build production AI features. Understand embeddings, RAG, evaluation frameworks, and prompt engineering at scale.',
+        descriptionPt: 'Construa features de IA para produção. Entenda embeddings, RAG, frameworks de avaliação e engenharia de prompts em escala.',
         depth: 'deep',
         estimatedHours: 60,
         priority: 5,
@@ -229,7 +310,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'compilers',
         title: 'Compilers and language design',
+        titlePt: 'Compiladores e design de linguagens',
         description: 'Understand parsing, ASTs, type checking, and code generation.',
+        descriptionPt: 'Entenda parsing, ASTs, verificação de tipos e geração de código.',
         depth: 'optional',
         estimatedHours: 80,
         priority: 3,
@@ -241,7 +324,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'security',
         title: 'Security: threat modeling, crypto fundamentals',
+        titlePt: 'Segurança: modelagem de ameaças, fundamentos de criptografia',
         description: 'Think about security systematically. Understand common vulnerabilities and applied cryptography.',
+        descriptionPt: 'Pense em segurança sistematicamente. Entenda vulnerabilidades comuns e criptografia aplicada.',
         depth: 'deep',
         estimatedHours: 35,
         priority: 3,
@@ -253,7 +338,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'performance-engineering',
         title: 'Performance engineering: profiling, cache hierarchies',
+        titlePt: 'Engenharia de performance: profiling, hierarquias de cache',
         description: 'Learn to measure before optimizing. Understand CPU caches, memory hierarchy, and profiling tools.',
+        descriptionPt: 'Aprenda a medir antes de otimizar. Entenda caches de CPU, hierarquia de memória e ferramentas de profiling.',
         depth: 'deep',
         estimatedHours: 40,
         priority: 3,
@@ -262,18 +349,52 @@ const seedData: SeedPillar[] = [
           { type: 'article', title: 'What Every Programmer Should Know About Memory', url: 'https://people.freebsd.org/~lstewart/articles/cpumemory.pdf', author: 'Ulrich Drepper' },
         ],
       },
+      {
+        slug: 'observability-profiling',
+        title: 'Observability & profiling',
+        titlePt: 'Observabilidade & profiling',
+        description: 'Logs, metrics, and tracing as first-class tools. Know how to profile CPU/memory/I/O, trace a request across services. Debugging without observability does not scale.',
+        descriptionPt: 'Logs, métricas e tracing como ferramentas de primeira classe. Saiba como fazer profile de CPU/memória/I/O, rastrear uma requisição entre serviços. Debugging sem observabilidade não escala.',
+        depth: 'deep',
+        estimatedHours: 35,
+        priority: 5,
+        resources: [
+          { type: 'book', title: 'Observability Engineering', url: null, author: 'Charity Majors, Liz Fong-Jones, George Miranda' },
+          { type: 'book', title: 'Distributed Tracing in Practice', url: null, author: 'Austin Parker et al.' },
+          { type: 'docs', title: 'OpenTelemetry Documentation', url: 'https://opentelemetry.io/docs/', author: null },
+        ],
+      },
+      {
+        slug: 'practical-distributed-systems',
+        title: 'Practical distributed systems',
+        titlePt: 'Sistemas distribuídos na prática',
+        description: 'Don\'t stay theoretical (Raft, CAP). Run and break real systems: message queues, caches, clusters. Learn via failure and observation.',
+        descriptionPt: 'Não fique na teoria (Raft, CAP). Execute e quebre sistemas reais: filas de mensagens, caches, clusters. Aprenda via falha e observação.',
+        depth: 'deep',
+        estimatedHours: 50,
+        priority: 4,
+        resources: [
+          { type: 'project', title: 'Fly.io Distributed Systems Challenges', url: 'https://fly.io/dist-sys/', author: null },
+          { type: 'book', title: 'Designing Data-Intensive Applications', url: null, author: 'Martin Kleppmann' },
+          { type: 'project', title: 'Build your own Redis', url: null, author: null },
+        ],
+      },
     ],
   },
   {
     slug: 'ai-tooling',
     title: 'AI-Era Tooling',
+    titlePt: 'Ferramentas da Era IA',
     description: 'Tools and practices for the AI-augmented developer',
+    descriptionPt: 'Ferramentas e práticas para o desenvolvedor aumentado por IA',
     color: '#d3869b',
     topics: [
       {
         slug: 'agentic-coding',
         title: 'Agentic coding workflow (Claude Code, Cursor, Zed)',
+        titlePt: 'Workflow de codificação agêntica (Claude Code, Cursor, Zed)',
         description: 'Integrate AI coding assistants into your workflow effectively.',
+        descriptionPt: 'Integre assistentes de codificação IA ao seu workflow de forma eficaz.',
         depth: 'broad',
         estimatedHours: 20,
         priority: 5,
@@ -285,7 +406,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'local-inference',
         title: 'Local model inference via Ollama / llama.cpp',
+        titlePt: 'Inferência local de modelos via Ollama / llama.cpp',
         description: 'Run models locally for privacy, speed, and understanding.',
+        descriptionPt: 'Execute modelos localmente para privacidade, velocidade e entendimento.',
         depth: 'broad',
         estimatedHours: 15,
         priority: 3,
@@ -297,7 +420,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'evals-first',
         title: 'Evals-first development for LLM features',
+        titlePt: 'Desenvolvimento evals-first para features LLM',
         description: 'Build LLM features with evaluation as the foundation.',
+        descriptionPt: 'Construa features LLM com avaliação como fundação.',
         depth: 'deep',
         estimatedHours: 25,
         priority: 5,
@@ -309,7 +434,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'prompt-architecture',
         title: 'Prompt architecture and context engineering',
+        titlePt: 'Arquitetura de prompts e engenharia de contexto',
         description: 'Design prompts as systems, not strings.',
+        descriptionPt: 'Projete prompts como sistemas, não strings.',
         depth: 'broad',
         estimatedHours: 20,
         priority: 4,
@@ -318,18 +445,64 @@ const seedData: SeedPillar[] = [
           { type: 'article', title: 'Prompt Engineering Guide', url: 'https://www.promptingguide.ai/', author: null },
         ],
       },
+      {
+        slug: 'spec-driven-ai',
+        title: 'Spec-driven AI usage',
+        titlePt: 'Uso de IA orientado por especificação',
+        description: 'Replace vague prompting with clear input/output contracts, constraints and edge cases. Treat AI like a junior engineer with strict boundaries.',
+        descriptionPt: 'Substitua prompts vagos por contratos claros de entrada/saída, restrições e casos extremos. Trate a IA como um engenheiro júnior com limites estritos.',
+        depth: 'deep',
+        estimatedHours: 20,
+        priority: 5,
+        resources: [
+          { type: 'docs', title: 'Anthropic Documentation', url: 'https://docs.anthropic.com/', author: null },
+          { type: 'article', title: 'Prompt Engineering for Developers', url: null, author: null },
+        ],
+      },
+      {
+        slug: 'stronger-evals',
+        title: 'Stronger evals for AI components',
+        titlePt: 'Evals mais robustas para componentes de IA',
+        description: 'Add regression cases, edge/adversarial inputs, and drift tracking over time. Evals become the new "tests" for AI components.',
+        descriptionPt: 'Adicione casos de regressão, inputs extremos/adversariais e rastreamento de drift ao longo do tempo. Evals se tornam os novos "testes" para componentes de IA.',
+        depth: 'deep',
+        estimatedHours: 25,
+        priority: 5,
+        resources: [
+          { type: 'docs', title: 'Anthropic Evaluation Guide', url: 'https://docs.anthropic.com/en/docs/build-with-claude/develop-tests', author: null },
+          { type: 'article', title: 'Building Evals for LLM Systems', url: null, author: null },
+        ],
+      },
+      {
+        slug: 'security-ai-systems',
+        title: 'Security basics for AI-integrated systems',
+        titlePt: 'Fundamentos de segurança para sistemas integrados com IA',
+        description: 'Prompt injection, data exposure risks, auth boundaries. Think in terms of threat models, not just features.',
+        descriptionPt: 'Injeção de prompt, riscos de exposição de dados, limites de autenticação. Pense em termos de modelos de ameaça, não apenas features.',
+        depth: 'deep',
+        estimatedHours: 25,
+        priority: 4,
+        resources: [
+          { type: 'docs', title: 'OWASP Top 10 for LLMs', url: 'https://owasp.org/www-project-top-10-for-large-language-model-applications/', author: null },
+          { type: 'article', title: 'Securing LLM Systems', url: null, author: null },
+        ],
+      },
     ],
   },
   {
     slug: 'gear',
     title: 'Gear & Environment',
+    titlePt: 'Equipamento & Ambiente',
     description: 'Physical and digital environment for productive development',
+    descriptionPt: 'Ambiente físico e digital para desenvolvimento produtivo',
     color: '#fe8019',
     topics: [
       {
         slug: 'ergonomic-keyboard',
         title: 'Ergonomic keyboard mastery',
+        titlePt: 'Domínio de teclado ergonômico',
         description: 'Invest in your primary input device.',
+        descriptionPt: 'Invista no seu dispositivo de entrada principal.',
         depth: 'optional',
         estimatedHours: 20,
         priority: 2,
@@ -341,7 +514,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'monitor-workflow',
         title: 'Dual-monitor / ultrawide workflow',
+        titlePt: 'Workflow com monitor duplo / ultrawide',
         description: 'Optimize your screen real estate.',
+        descriptionPt: 'Otimize o espaço da sua tela.',
         depth: 'optional',
         estimatedHours: 10,
         priority: 2,
@@ -352,7 +527,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'homelab',
         title: 'Homelab as a practice environment',
+        titlePt: 'Homelab como ambiente de prática',
         description: 'Use your homelab to practice deployment, networking, monitoring, and infrastructure skills.',
+        descriptionPt: 'Use seu homelab para praticar deploy, rede, monitoramento e habilidades de infraestrutura.',
         depth: 'broad',
         estimatedHours: 40,
         priority: 3,
@@ -364,7 +541,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'dev-machine',
         title: 'Dev machine sized for local LLMs (32GB+ RAM)',
+        titlePt: 'Máquina de dev dimensionada para LLMs locais (32GB+ RAM)',
         description: 'Configure your development machine for running local language models.',
+        descriptionPt: 'Configure sua máquina de desenvolvimento para rodar modelos de linguagem locais.',
         depth: 'optional',
         estimatedHours: 10,
         priority: 2,
@@ -377,13 +556,17 @@ const seedData: SeedPillar[] = [
   {
     slug: 'meta-skills',
     title: 'Meta-Skills',
+    titlePt: 'Meta-Habilidades',
     description: 'Skills that amplify everything else you do',
+    descriptionPt: 'Habilidades que amplificam tudo o que você faz',
     color: '#8ec07c',
     topics: [
       {
         slug: 'technical-writing',
         title: 'Technical writing: READMEs, design docs, post-mortems',
+        titlePt: 'Escrita técnica: READMEs, docs de design, post-mortems',
         description: 'Write clearly about technical topics.',
+        descriptionPt: 'Escreva com clareza sobre tópicos técnicos.',
         depth: 'broad',
         estimatedHours: 25,
         priority: 5,
@@ -395,7 +578,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'reading-source',
         title: 'Reading source code of tools you use',
+        titlePt: 'Leitura do código-fonte das ferramentas que você usa',
         description: 'Go beyond the docs. Read the actual source of your dependencies.',
+        descriptionPt: 'Vá além da documentação. Leia o código-fonte real das suas dependências.',
         depth: 'broad',
         estimatedHours: 30,
         priority: 4,
@@ -406,7 +591,9 @@ const seedData: SeedPillar[] = [
       {
         slug: 'hobby-outside-code',
         title: 'One long-horizon hobby outside code',
+        titlePt: 'Um hobby de longo prazo fora de código',
         description: 'Maintain a serious hobby outside programming.',
+        descriptionPt: 'Mantenha um hobby sério fora da programação.',
         depth: 'broad',
         estimatedHours: null,
         priority: 3,
@@ -415,13 +602,43 @@ const seedData: SeedPillar[] = [
       {
         slug: 'async-communication',
         title: 'Async communication for remote work',
+        titlePt: 'Comunicação assíncrona para trabalho remoto',
         description: 'Write better messages, docs, and updates. Reduce meetings.',
+        descriptionPt: 'Escreva melhores mensagens, docs e atualizações. Reduza reuniões.',
         depth: 'broad',
         estimatedHours: 15,
         priority: 4,
         resources: [
           { type: 'book', title: 'Remote: Office Not Required', url: null, author: 'Jason Fried, David Heinemeier Hansson' },
           { type: 'article', title: 'How to write async', url: null, author: null },
+        ],
+      },
+      {
+        slug: 'cost-awareness',
+        title: 'Cost awareness',
+        titlePt: 'Consciência de custos',
+        description: 'Understand tradeoffs: latency vs compute, storage vs recomputation, token usage in LLM systems. Build systems that are economically viable.',
+        descriptionPt: 'Entenda trade-offs: latência vs computação, armazenamento vs recomputação, uso de tokens em sistemas LLM. Construa sistemas economicamente viáveis.',
+        depth: 'broad',
+        estimatedHours: 20,
+        priority: 4,
+        resources: [
+          { type: 'article', title: 'Cost-Aware System Design', url: null, author: null },
+          { type: 'docs', title: 'AWS Well-Architected: Cost Optimization', url: 'https://docs.aws.amazon.com/wellarchitected/latest/cost-optimization-pillar/welcome.html', author: null },
+        ],
+      },
+      {
+        slug: 'product-sense',
+        title: 'Product sense',
+        titlePt: 'Senso de produto',
+        description: 'Decide what not to build. Optimize for usefulness, not technical elegance. AI increases output — direction becomes more critical.',
+        descriptionPt: 'Decida o que não construir. Otimize para utilidade, não elegância técnica. IA aumenta a produção — direção se torna mais crítica.',
+        depth: 'broad',
+        estimatedHours: 20,
+        priority: 5,
+        resources: [
+          { type: 'book', title: 'Inspired', url: null, author: 'Marty Cagan' },
+          { type: 'book', title: 'The Mom Test', url: null, author: 'Rob Fitzpatrick' },
         ],
       },
     ],

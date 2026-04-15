@@ -4,6 +4,7 @@ import { marked } from 'marked'
 const route = useRoute()
 const router = useRouter()
 const slug = route.params.slug as string
+const { t, localized } = useI18n()
 const { fetchTopic, updateProgress, toggleResource } = useTopics()
 
 const { data: topic, refresh } = await fetchTopic(slug)
@@ -16,9 +17,11 @@ const editingNotes = ref(false)
 const notesText = ref(topic.value?.progressNotes ?? '')
 let saveTimeout: ReturnType<typeof setTimeout> | null = null
 
+const localTopic = computed(() => topic.value ? localized(topic.value) : null)
+
 const renderedDescription = computed(() => {
-  if (!topic.value?.description) return ''
-  return marked.parse(topic.value.description) as string
+  if (!localTopic.value) return ''
+  return marked.parse(localTopic.value.localDescription) as string
 })
 
 const renderedNotes = computed(() => {
@@ -64,7 +67,7 @@ watch(() => topic.value?.progressNotes, (val) => {
       class="text-xs font-mono text-gruvbox-fg4 hover:text-gruvbox-fg3 mb-4 flex items-center gap-1"
       @click="router.push('/roadmap')"
     >
-      &larr; back to roadmap
+      &larr; {{ t('topic.backToRoadmap') }}
     </button>
 
     <div class="flex items-start justify-between gap-4 mb-2">
@@ -76,11 +79,11 @@ watch(() => topic.value?.progressNotes, (val) => {
             :style="{ backgroundColor: topic.pillar.color }"
           />
           <span v-if="topic.pillar" class="text-xs font-mono text-gruvbox-fg4">
-            {{ topic.pillar.title }}
+            {{ localized(topic.pillar).localTitle }}
           </span>
         </div>
         <h1 class="text-xl font-sans font-semibold text-gruvbox-fg">
-          {{ topic.title }}
+          {{ localTopic?.localTitle }}
         </h1>
       </div>
       <StatusBadge :status="topic.status" />
@@ -89,14 +92,14 @@ watch(() => topic.value?.progressNotes, (val) => {
     <div class="flex items-center gap-4 mb-6 text-xs text-gruvbox-fg4">
       <PriorityDots :priority="topic.priority" />
       <DepthTag :depth="topic.depth" />
-      <span v-if="topic.estimatedHours" class="font-mono">{{ topic.estimatedHours }}h estimated</span>
+      <span v-if="topic.estimatedHours" class="font-mono">{{ t('topic.estimated', { hours: topic.estimatedHours }) }}</span>
     </div>
 
     <div v-if="topic.description" class="markdown-body mb-8" v-html="renderedDescription" />
 
     <!-- Status controls -->
     <div class="border border-gruvbox-bg2 rounded-lg p-4 mb-6">
-      <h2 class="text-sm font-mono text-gruvbox-fg3 mb-3">Status</h2>
+      <h2 class="text-sm font-mono text-gruvbox-fg3 mb-3">{{ t('topic.status') }}</h2>
       <div class="flex flex-wrap gap-2 mb-4">
         <button
           v-for="s in statusOptions"
@@ -107,11 +110,11 @@ watch(() => topic.value?.progressNotes, (val) => {
             : 'border-gruvbox-bg3 text-gruvbox-fg4 hover:text-gruvbox-fg3 hover:border-gruvbox-bg4'"
           @click="setStatus(s)"
         >
-          {{ s.replace('_', ' ') }}
+          {{ t(`status.${s}`) }}
         </button>
       </div>
 
-      <h2 class="text-sm font-mono text-gruvbox-fg3 mb-2">Confidence</h2>
+      <h2 class="text-sm font-mono text-gruvbox-fg3 mb-2">{{ t('topic.confidence') }}</h2>
       <div class="flex items-center gap-2">
         <button
           v-for="i in 5"
@@ -130,9 +133,9 @@ watch(() => topic.value?.progressNotes, (val) => {
 
     <!-- Resources -->
     <div class="border border-gruvbox-bg2 rounded-lg p-4 mb-6">
-      <h2 class="text-sm font-mono text-gruvbox-fg3 mb-3">Resources</h2>
+      <h2 class="text-sm font-mono text-gruvbox-fg3 mb-3">{{ t('topic.resources') }}</h2>
       <div v-if="topic.resources.length === 0" class="text-sm text-gruvbox-fg4">
-        No resources yet.
+        {{ t('topic.resources.empty') }}
       </div>
       <div v-else class="space-y-2">
         <div
@@ -179,30 +182,30 @@ watch(() => topic.value?.progressNotes, (val) => {
     <!-- Notes -->
     <div class="border border-gruvbox-bg2 rounded-lg p-4 mb-6">
       <div class="flex items-center justify-between mb-3">
-        <h2 class="text-sm font-mono text-gruvbox-fg3">My Notes</h2>
+        <h2 class="text-sm font-mono text-gruvbox-fg3">{{ t('topic.notes') }}</h2>
         <button
           class="text-xs font-mono text-gruvbox-fg4 hover:text-gruvbox-fg3"
           @click="editingNotes = !editingNotes"
         >
-          {{ editingNotes ? 'preview' : 'edit' }}
+          {{ editingNotes ? t('topic.notes.preview') : t('topic.notes.edit') }}
         </button>
       </div>
       <textarea
         v-if="editingNotes"
         v-model="notesText"
         class="w-full min-h-[200px] bg-gruvbox-bg-hard border border-gruvbox-bg3 rounded p-3 text-sm font-mono text-gruvbox-fg placeholder-gruvbox-fg4 focus:outline-none focus:border-gruvbox-yellow resize-y"
-        placeholder="Write your notes here (markdown supported)..."
+        :placeholder="t('topic.notes.placeholder')"
         @input="onNotesInput"
       />
       <div v-else-if="notesText" class="markdown-body" v-html="renderedNotes" />
       <div v-else class="text-sm text-gruvbox-fg4">
-        No notes yet. Click edit to start writing.
+        {{ t('topic.notes.empty') }}
       </div>
     </div>
 
     <!-- Related log entries -->
     <div v-if="topic.logEntries.length > 0" class="border border-gruvbox-bg2 rounded-lg p-4">
-      <h2 class="text-sm font-mono text-gruvbox-fg3 mb-3">Study Log</h2>
+      <h2 class="text-sm font-mono text-gruvbox-fg3 mb-3">{{ t('topic.studyLog') }}</h2>
       <div class="space-y-2">
         <div
           v-for="log in topic.logEntries"

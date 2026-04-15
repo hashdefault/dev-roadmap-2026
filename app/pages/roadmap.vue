@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const router = useRouter()
+const { t } = useI18n()
 const { fetchPillars, fetchTopics, updateProgress } = useTopics()
 
 const { data: pillars, refresh: refreshPillars } = await fetchPillars()
@@ -87,14 +88,14 @@ const { activeIndex } = useKeyboardNav({
 <template>
   <div>
     <div class="flex items-center justify-between mb-6">
-      <h1 class="text-lg font-sans font-semibold text-gruvbox-fg">Roadmap</h1>
+      <h1 class="text-lg font-sans font-semibold text-gruvbox-fg">{{ t('roadmap.title') }}</h1>
       <div class="flex items-center gap-2">
         <div v-if="showSearch" class="relative">
           <input
             ref="searchInput"
             v-model="searchQuery"
             type="text"
-            placeholder="Search topics..."
+            :placeholder="t('roadmap.searchPlaceholder')"
             class="bg-gruvbox-bg1 border border-gruvbox-bg3 rounded px-3 py-1.5 text-sm font-mono text-gruvbox-fg placeholder-gruvbox-fg4 focus:outline-none focus:border-gruvbox-yellow w-64"
             @keydown.escape="showSearch = false; searchQuery = ''"
           >
@@ -104,7 +105,7 @@ const { activeIndex } = useKeyboardNav({
           class="text-xs font-mono text-gruvbox-fg4 hover:text-gruvbox-fg3 flex items-center gap-1"
           @click="showSearch = true; nextTick(() => searchInput?.focus())"
         >
-          <kbd class="kbd">/</kbd> search
+          <kbd class="kbd">/</kbd> {{ t('roadmap.search') }}
         </button>
       </div>
     </div>
@@ -114,32 +115,32 @@ const { activeIndex } = useKeyboardNav({
         v-model="filterPillar"
         class="bg-gruvbox-bg1 border border-gruvbox-bg3 rounded px-2 py-1 text-gruvbox-fg3 focus:outline-none"
       >
-        <option value="">All pillars</option>
+        <option value="">{{ t('roadmap.allPillars') }}</option>
         <option v-for="p in pillars" :key="p.id" :value="p.slug">{{ p.title }}</option>
       </select>
       <select
         v-model="filterStatus"
         class="bg-gruvbox-bg1 border border-gruvbox-bg3 rounded px-2 py-1 text-gruvbox-fg3 focus:outline-none"
       >
-        <option value="">All statuses</option>
-        <option value="not_started">Not started</option>
-        <option value="in_progress">In progress</option>
-        <option value="completed">Completed</option>
-        <option value="revisiting">Revisiting</option>
+        <option value="">{{ t('roadmap.allStatuses') }}</option>
+        <option value="not_started">{{ t('status.not_started') }}</option>
+        <option value="in_progress">{{ t('status.in_progress') }}</option>
+        <option value="completed">{{ t('status.completed') }}</option>
+        <option value="revisiting">{{ t('status.revisiting') }}</option>
       </select>
       <select
         v-model="filterDepth"
         class="bg-gruvbox-bg1 border border-gruvbox-bg3 rounded px-2 py-1 text-gruvbox-fg3 focus:outline-none"
       >
-        <option value="">All depths</option>
-        <option value="broad">Broad</option>
-        <option value="deep">Deep</option>
-        <option value="optional">Optional</option>
+        <option value="">{{ t('roadmap.allDepths') }}</option>
+        <option value="broad">{{ t('depth.broad') }}</option>
+        <option value="deep">{{ t('depth.deep') }}</option>
+        <option value="optional">{{ t('depth.optional') }}</option>
       </select>
       <div class="ml-auto text-gruvbox-fg4">
-        <kbd class="kbd">j</kbd>/<kbd class="kbd">k</kbd> navigate
-        <kbd class="kbd ml-2">Enter</kbd> open
-        <kbd class="kbd ml-2">x</kbd> toggle
+        <kbd class="kbd">j</kbd>/<kbd class="kbd">k</kbd> {{ t('roadmap.navigate') }}
+        <kbd class="kbd ml-2">Enter</kbd> {{ t('roadmap.open') }}
+        <kbd class="kbd ml-2">x</kbd> {{ t('roadmap.toggle') }}
       </div>
     </div>
 

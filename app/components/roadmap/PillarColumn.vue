@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { TopicWithProgress, PillarWithStats } from '~/composables/useTopics'
 
+const { localized } = useI18n()
+
 const props = defineProps<{
   pillar: PillarWithStats
   topics: TopicWithProgress[]
@@ -30,7 +32,7 @@ const progress = computed(() => {
           :style="{ backgroundColor: pillar.color }"
         />
         <span class="font-sans font-medium text-sm text-gruvbox-fg">
-          {{ pillar.title }}
+          {{ localized(pillar).localTitle }}
         </span>
         <span class="text-xs font-mono text-gruvbox-fg4">
           {{ pillar.completedCount }}/{{ pillar.topicCount }}

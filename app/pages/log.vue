@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { TopicWithProgress } from '~/composables/useTopics'
 
+const { t } = useI18n()
 const { fetchLogs, fetchStats, fetchHeatmap, addEntry } = useLog()
 const { fetchTopics } = useTopics()
 
@@ -59,12 +60,12 @@ async function submitEntry() {
 <template>
   <div>
     <div class="flex items-center justify-between mb-6">
-      <h1 class="text-lg font-sans font-semibold text-gruvbox-fg">Study Log</h1>
+      <h1 class="text-lg font-sans font-semibold text-gruvbox-fg">{{ t('log.title') }}</h1>
       <button
         class="px-3 py-1.5 text-sm font-mono bg-gruvbox-green/10 text-gruvbox-green border border-gruvbox-green/30 rounded hover:bg-gruvbox-green/20 transition-colors"
         @click="showForm = !showForm"
       >
-        {{ showForm ? 'Cancel' : '+ Add Entry' }}
+        {{ showForm ? t('log.cancel') : t('log.addEntry') }}
       </button>
     </div>
 
@@ -72,7 +73,7 @@ async function submitEntry() {
     <div v-if="showForm" class="border border-gruvbox-bg2 rounded-lg p-4 mb-6">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
         <div>
-          <label class="text-xs font-mono text-gruvbox-fg4 block mb-1">Date</label>
+          <label class="text-xs font-mono text-gruvbox-fg4 block mb-1">{{ t('log.date') }}</label>
           <input
             v-model="formDate"
             type="date"
@@ -80,7 +81,7 @@ async function submitEntry() {
           >
         </div>
         <div>
-          <label class="text-xs font-mono text-gruvbox-fg4 block mb-1">Duration (minutes)</label>
+          <label class="text-xs font-mono text-gruvbox-fg4 block mb-1">{{ t('log.duration') }}</label>
           <input
             v-model.number="formDuration"
             type="number"
@@ -89,51 +90,51 @@ async function submitEntry() {
           >
         </div>
         <div>
-          <label class="text-xs font-mono text-gruvbox-fg4 block mb-1">Topic (optional)</label>
+          <label class="text-xs font-mono text-gruvbox-fg4 block mb-1">{{ t('log.topicOptional') }}</label>
           <select
             v-model="formTopicId"
             class="w-full bg-gruvbox-bg1 border border-gruvbox-bg3 rounded px-2 py-1.5 text-sm font-mono text-gruvbox-fg3 focus:outline-none"
           >
-            <option :value="null">None</option>
-            <option v-for="t in allTopics" :key="t.id" :value="t.id">{{ t.title }}</option>
+            <option :value="null">{{ t('log.none') }}</option>
+            <option v-for="tp in allTopics" :key="tp.id" :value="tp.id">{{ tp.title }}</option>
           </select>
         </div>
       </div>
       <div class="mb-4">
-        <label class="text-xs font-mono text-gruvbox-fg4 block mb-1">Summary</label>
+        <label class="text-xs font-mono text-gruvbox-fg4 block mb-1">{{ t('log.summary') }}</label>
         <textarea
           v-model="formSummary"
           class="w-full bg-gruvbox-bg1 border border-gruvbox-bg3 rounded px-3 py-2 text-sm font-mono text-gruvbox-fg placeholder-gruvbox-fg4 focus:outline-none focus:border-gruvbox-yellow resize-y min-h-[80px]"
-          placeholder="What did you work on?"
+          :placeholder="t('log.summaryPlaceholder')"
         />
       </div>
       <button
         class="px-4 py-2 text-sm font-mono bg-gruvbox-green/20 text-gruvbox-green border border-gruvbox-green/30 rounded hover:bg-gruvbox-green/30 transition-colors"
         @click="submitEntry"
       >
-        Save Entry
+        {{ t('log.save') }}
       </button>
     </div>
 
     <!-- Stats -->
     <div v-if="stats" class="grid grid-cols-3 gap-4 mb-6">
       <div class="border border-gruvbox-bg2 rounded-lg p-4 text-center">
-        <span class="text-xs font-mono text-gruvbox-fg4 block">This Week</span>
+        <span class="text-xs font-mono text-gruvbox-fg4 block">{{ t('log.thisWeek') }}</span>
         <span class="text-xl font-mono text-gruvbox-fg">{{ formatMinutes(stats.weekMinutes) }}</span>
       </div>
       <div class="border border-gruvbox-bg2 rounded-lg p-4 text-center">
-        <span class="text-xs font-mono text-gruvbox-fg4 block">This Month</span>
+        <span class="text-xs font-mono text-gruvbox-fg4 block">{{ t('log.thisMonth') }}</span>
         <span class="text-xl font-mono text-gruvbox-fg">{{ formatMinutes(stats.monthMinutes) }}</span>
       </div>
       <div class="border border-gruvbox-bg2 rounded-lg p-4 text-center">
-        <span class="text-xs font-mono text-gruvbox-fg4 block">All Time</span>
+        <span class="text-xs font-mono text-gruvbox-fg4 block">{{ t('log.allTime') }}</span>
         <span class="text-xl font-mono text-gruvbox-fg">{{ formatMinutes(stats.allTimeMinutes) }}</span>
       </div>
     </div>
 
     <!-- Heatmap -->
     <div v-if="heatmap" class="border border-gruvbox-bg2 rounded-lg p-4 mb-6">
-      <h2 class="text-sm font-mono text-gruvbox-fg3 mb-3">Activity</h2>
+      <h2 class="text-sm font-mono text-gruvbox-fg3 mb-3">{{ t('log.activity') }}</h2>
       <Heatmap :data="heatmap" />
     </div>
 
@@ -143,8 +144,8 @@ async function submitEntry() {
         v-model="filterTopicId"
         class="bg-gruvbox-bg1 border border-gruvbox-bg3 rounded px-2 py-1 text-gruvbox-fg3 focus:outline-none"
       >
-        <option value="">All topics</option>
-        <option v-for="t in allTopics" :key="t.id" :value="t.id">{{ t.title }}</option>
+        <option value="">{{ t('log.allTopics') }}</option>
+        <option v-for="tp in allTopics" :key="tp.id" :value="tp.id">{{ tp.title }}</option>
       </select>
       <input
         v-model="filterFrom"
@@ -163,7 +164,7 @@ async function submitEntry() {
     <!-- Log entries -->
     <div class="space-y-2">
       <div v-if="filteredLogs.length === 0" class="text-sm text-gruvbox-fg4 py-8 text-center">
-        No log entries yet. Start tracking your study sessions.
+        {{ t('log.empty') }}
       </div>
       <LogEntryItem
         v-for="entry in filteredLogs"
