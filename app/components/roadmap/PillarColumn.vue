@@ -21,35 +21,38 @@ const progress = computed(() => {
 </script>
 
 <template>
-  <div class="border border-gruvbox-bg2 rounded-lg overflow-hidden">
+  <div
+    class="card overflow-hidden accent-line pl-[3px]"
+    :style="{ '--accent-color': pillar.color }"
+  >
     <button
-      class="w-full px-4 py-3 flex items-center justify-between bg-gruvbox-bg-hard hover:bg-gruvbox-bg1 transition-colors text-left"
+      class="w-full px-4 py-3 flex items-center justify-between bg-gruvbox-bg-hard/50 hover:bg-gruvbox-bg1/50 transition-colors text-left"
       @click="$emit('toggleCollapse')"
     >
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3 min-w-0">
         <span
-          class="w-3 h-3 rounded-full flex-shrink-0"
-          :style="{ backgroundColor: pillar.color }"
+          class="w-3 h-3 rounded-full flex-shrink-0 ring-2 ring-offset-1 ring-offset-gruvbox-bg"
+          :style="{ backgroundColor: pillar.color, ringColor: `${pillar.color}40` }"
         />
-        <span class="font-sans font-medium text-sm text-gruvbox-fg">
+        <span class="font-sans font-medium text-sm text-gruvbox-fg truncate">
           {{ localized(pillar).localTitle }}
         </span>
-        <span class="text-xs font-mono text-gruvbox-fg4">
+        <span class="text-xs font-mono text-gruvbox-fg4 flex-shrink-0">
           {{ pillar.completedCount }}/{{ pillar.topicCount }}
         </span>
       </div>
-      <div class="flex items-center gap-3">
-        <div class="w-24 h-1.5 bg-gruvbox-bg2 rounded-full overflow-hidden">
+      <div class="flex items-center gap-3 flex-shrink-0 ml-3">
+        <div class="w-28 h-2 bg-gruvbox-bg2 rounded-full overflow-hidden">
           <div
-            class="h-full rounded-full transition-all duration-500"
+            class="h-full rounded-full transition-all duration-700 ease-out"
             :style="{ width: `${progress}%`, backgroundColor: pillar.color }"
           />
         </div>
-        <span class="text-xs font-mono text-gruvbox-fg4 w-8 text-right">
+        <span class="text-xs font-mono text-gruvbox-fg4 w-10 text-right tabular-nums">
           {{ progress }}%
         </span>
         <svg
-          class="w-4 h-4 text-gruvbox-fg4 transition-transform"
+          class="w-4 h-4 text-gruvbox-fg4 transition-transform duration-200"
           :class="{ '-rotate-90': collapsed }"
           fill="none"
           viewBox="0 0 24 24"
@@ -59,7 +62,7 @@ const progress = computed(() => {
         </svg>
       </div>
     </button>
-    <div v-show="!collapsed" class="p-3 space-y-2">
+    <div v-show="!collapsed" class="p-3 space-y-2 bg-gruvbox-bg/30">
       <TopicCard
         v-for="topic in topics"
         :key="topic.id"

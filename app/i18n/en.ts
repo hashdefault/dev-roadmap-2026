@@ -7,6 +7,9 @@ export default {
 
   // Dashboard
   'dashboard.title': 'Dashboard',
+  'dashboard.greeting.morning': 'Good morning. Time to learn.',
+  'dashboard.greeting.afternoon': 'Good afternoon. Keep building.',
+  'dashboard.greeting.evening': 'Good evening. Deep work hours.',
   'dashboard.topicsCompleted': '{completed}/{total} topics completed',
   'dashboard.inProgress': 'In Progress',
   'dashboard.completed': 'Completed',
@@ -20,6 +23,8 @@ export default {
   'dashboard.confidence': 'confidence {value}/5',
   'dashboard.nextUp': 'Next Up',
   'dashboard.nextUp.empty': 'All topics are either in progress or completed.',
+  'dashboard.suggested': 'suggested',
+  'dashboard.viewAll': 'view all',
   'dashboard.recentSessions': 'Recent Study Sessions',
   'dashboard.noSummary': '(no summary)',
 
@@ -58,6 +63,10 @@ export default {
   'topic.notes.placeholder': 'Write your notes here (markdown supported)...',
   'topic.studyLog': 'Study Log',
   'topic.estimated': '{hours}h estimated',
+  'topic.depth_label': 'Depth',
+  'topic.priority_label': 'Priority',
+  'topic.estimate_label': 'Estimate',
+  'topic.started_label': 'Started',
 
   // Log
   'log.title': 'Study Log',

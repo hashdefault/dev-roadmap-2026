@@ -7,6 +7,9 @@ export default {
 
   // Dashboard
   'dashboard.title': 'Painel',
+  'dashboard.greeting.morning': 'Bom dia. Hora de aprender.',
+  'dashboard.greeting.afternoon': 'Boa tarde. Continue construindo.',
+  'dashboard.greeting.evening': 'Boa noite. Horas de foco profundo.',
   'dashboard.topicsCompleted': '{completed}/{total} tópicos concluídos',
   'dashboard.inProgress': 'Em Progresso',
   'dashboard.completed': 'Concluídos',
@@ -20,6 +23,8 @@ export default {
   'dashboard.confidence': 'confiança {value}/5',
   'dashboard.nextUp': 'Próximos',
   'dashboard.nextUp.empty': 'Todos os tópicos estão em progresso ou concluídos.',
+  'dashboard.suggested': 'sugerido',
+  'dashboard.viewAll': 'ver tudo',
   'dashboard.recentSessions': 'Sessões de Estudo Recentes',
   'dashboard.noSummary': '(sem resumo)',
 
@@ -58,6 +63,10 @@ export default {
   'topic.notes.placeholder': 'Escreva suas notas aqui (markdown suportado)...',
   'topic.studyLog': 'Registro de Estudo',
   'topic.estimated': '{hours}h estimadas',
+  'topic.depth_label': 'Profundidade',
+  'topic.priority_label': 'Prioridade',
+  'topic.estimate_label': 'Estimativa',
+  'topic.started_label': 'Iniciado',
 
   // Log
   'log.title': 'Registro de Estudo',

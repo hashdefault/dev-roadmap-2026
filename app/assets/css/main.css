@@ -42,6 +42,22 @@
   font-display: swap;
 }
 
+/* Animations */
+@keyframes cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { filter: drop-shadow(0 0 2px currentColor); }
+  50% { filter: drop-shadow(0 0 6px currentColor); }
+}
+
 @layer base {
   html {
     @apply bg-gruvbox-bg text-gruvbox-fg font-sans;
@@ -74,8 +90,48 @@
 
 @layer components {
   .kbd {
-    @apply inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-mono
-           bg-gruvbox-bg1 text-gruvbox-fg3 border border-gruvbox-bg3 rounded;
+    @apply inline-flex items-center justify-center px-1.5 py-0.5 text-[11px] font-mono leading-none
+           bg-gruvbox-bg1 text-gruvbox-fg4 border border-gruvbox-bg3 rounded
+           shadow-[0_1px_0_0_theme(colors.gruvbox.bg2)];
+  }
+
+  .terminal-cursor {
+    @apply inline-block w-[7px] h-[14px] bg-gruvbox-green/80 ml-0.5;
+    animation: cursor-blink 1s step-end infinite;
+  }
+
+  .section-label {
+    @apply text-[11px] font-mono text-gruvbox-fg4 uppercase tracking-widest;
+  }
+
+  .card {
+    @apply border border-gruvbox-bg2 rounded-lg;
+  }
+
+  .card-elevated {
+    @apply border border-gruvbox-bg2 rounded-lg bg-gruvbox-bg-hard/50;
+  }
+
+  .card-header {
+    @apply px-4 py-2.5 border-b border-gruvbox-bg2 flex items-center justify-between;
+  }
+
+  .fade-in-up {
+    animation: fade-in-up 0.3s ease-out both;
+  }
+
+  .stagger-1 { animation-delay: 0.05s; }
+  .stagger-2 { animation-delay: 0.1s; }
+  .stagger-3 { animation-delay: 0.15s; }
+  .stagger-4 { animation-delay: 0.2s; }
+
+  .accent-line {
+    @apply relative;
+  }
+  .accent-line::before {
+    content: '';
+    @apply absolute left-0 top-0 bottom-0 w-[3px] rounded-full;
+    background-color: var(--accent-color, theme(colors.gruvbox.fg4));
   }
 
   .markdown-body {

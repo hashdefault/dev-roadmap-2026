@@ -9,7 +9,6 @@ const weeks = computed(() => {
   const now = new Date()
   const yearAgo = new Date(now)
   yearAgo.setFullYear(yearAgo.getFullYear() - 1)
-  // Start from the nearest Sunday
   yearAgo.setDate(yearAgo.getDate() - yearAgo.getDay())
 
   const dataMap = new Map<string, number>()
@@ -53,8 +52,12 @@ const levelColors = [
   'bg-gruvbox-green',
 ]
 
+const cellSize = 11
+const cellGap = 3
+const colWidth = cellSize + cellGap
+
 const monthLabels = computed(() => {
-  const labels: { text: string; col: number }[] = []
+  const labels: { text: string; offset: number }[] = []
   let lastMonth = -1
   for (let i = 0; i < weeks.value.length; i++) {
     const firstDay = weeks.value[i][0]
@@ -63,7 +66,7 @@ const monthLabels = computed(() => {
     if (month !== lastMonth) {
       labels.push({
         text: new Date(firstDay.date).toLocaleString('en', { month: 'short' }),
-        col: i,
+        offset: i * colWidth,
       })
       lastMonth = month
     }
@@ -74,18 +77,20 @@ const monthLabels = computed(() => {
 
 <template>
   <div class="overflow-x-auto">
-    <div class="inline-block">
-      <div class="flex gap-0.5 mb-1 ml-8 text-[10px] font-mono text-gruvbox-fg4">
+    <div class="inline-block min-w-0">
+      <!-- Month labels -->
+      <div class="relative h-4 mb-1" :style="{ width: `${weeks.length * colWidth}px` }">
         <span
-          v-for="label in monthLabels"
-          :key="label.col"
-          class="absolute"
-          :style="{ left: `${label.col * 14 + 32}px` }"
+          v-for="(label, i) in monthLabels"
+          :key="i"
+          class="absolute top-0 text-[10px] font-mono text-gruvbox-fg4 whitespace-nowrap"
+          :style="{ left: `${label.offset}px` }"
         >
           {{ label.text }}
         </span>
       </div>
-      <div class="flex gap-[3px] relative mt-5">
+      <!-- Grid -->
+      <div class="flex gap-[3px]">
         <div
           v-for="(week, wi) in weeks"
           :key="wi"
@@ -100,7 +105,8 @@ const monthLabels = computed(() => {
           />
         </div>
       </div>
-      <div class="flex items-center gap-1 mt-3 text-[10px] font-mono text-gruvbox-fg4">
+      <!-- Legend -->
+      <div class="flex items-center gap-1.5 mt-3 text-[10px] font-mono text-gruvbox-fg4">
         <span>Less</span>
         <div
           v-for="(color, i) in levelColors"
