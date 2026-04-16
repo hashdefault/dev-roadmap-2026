@@ -4,15 +4,25 @@ RUN apk add --no-cache python3 make g++ sqlite-dev libc6-compat
 
 WORKDIR /app
 
+ENV npm_config_build_from_source=true
+ENV npm_config_target_libc=musl
+
 COPY package.json package-lock.json ./
-RUN npm install --build-from-source=better-sqlite3 
+RUN npm install
+
+RUN npm rebuild better-sqlite3 --build-from-source
 
 COPY . .
 RUN npm run build
 
+# Rebuild again inside Nitro output
+RUN cd .output/server && npm rebuild better-sqlite3 --build-from-source
+
 # ---
 
 FROM node:22-alpine AS runtime
+
+RUN apk add --no-cache libc6-compat sqlite-libs
 
 WORKDIR /app
 
@@ -22,15 +32,9 @@ COPY --from=builder /app/server/db/migrations server/db/migrations
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
 ENV PORT=3000
-ENV DB_PATH=/app/data/roadmap.db
-ENV MIGRATIONS_PATH=/app/server/db/migrations
-ENV npm_config_build_from_source=true
 
 RUN mkdir -p /app/data
 
 EXPOSE 3000
-
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD node -e "fetch('http://localhost:3000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"
 
 CMD ["node", ".output/server/index.mjs"]
