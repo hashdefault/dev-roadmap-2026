@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import type { TopicWithProgress } from '~/composables/useTopics'
+import StatusBadge from '../ui/StatusBadge.vue'
+import PriorityDots from '../ui/PriorityDots.vue'
+import DepthTag from '../ui/DepthTag.vue'
 
 const { localized } = useI18n()
 

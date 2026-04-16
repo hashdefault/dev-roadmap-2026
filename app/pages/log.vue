@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { TopicWithProgress } from '~/composables/useTopics'
+import Heatmap from '../components/log/Heatmap.vue'
+import LogEntryItem from '../components/log/LogEntryItem.vue'
 
 const { t } = useI18n()
 const { fetchLogs, fetchStats, fetchHeatmap, addEntry } = useLog()

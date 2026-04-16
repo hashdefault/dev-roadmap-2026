@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import ProgressRing from '../components/roadmap/ProgressRing.vue'
+import Sparkline from '../components/roadmap/Sparkline.vue'
+import PriorityDots from '../components/ui/PriorityDots.vue'
+import DepthTag from '../components/ui/DepthTag.vue'
+
 const router = useRouter()
 const { t, localized } = useI18n()
 

@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { marked } from 'marked'
+import StatusBadge from '../components/ui/StatusBadge.vue'
+import PriorityDots from '../components/ui/PriorityDots.vue'
+import DepthTag from '../components/ui/DepthTag.vue'
+import ResourceIcon from '../components/ui/ResourceIcon.vue'
 
 const route = useRoute()
 const router = useRouter()
