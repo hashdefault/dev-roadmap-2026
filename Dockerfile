@@ -1,16 +1,19 @@
-FROM node:22-slim AS builder
+FROM node:22-alpine AS builder
+
+RUN apk add --no-cache python3 make g++
 
 WORKDIR /app
 
 COPY package.json package-lock.json ./
 RUN npm install
+RUN npm rebuild better-sqlite3 --build-from-source
 
 COPY . .
 RUN npm run build
 
 # ---
 
-FROM node:22-slim AS runtime
+FROM node:22-alpine AS runtime
 
 WORKDIR /app
 
@@ -28,6 +31,6 @@ RUN mkdir -p /app/data
 EXPOSE 3000
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD wget -qO- http://localhost:3000/api/health || exit 1
+  CMD node -e "fetch('http://localhost:3000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"
 
 CMD ["node", ".output/server/index.mjs"]
