@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { TopicWithProgress, PillarWithStats } from '~/composables/useTopics'
+import TopicCard from './TopicCard.vue'
 
 const { localized } = useI18n()
 
