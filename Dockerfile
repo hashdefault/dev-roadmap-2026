@@ -1,12 +1,11 @@
 FROM node:22-alpine AS builder
 
-RUN apk add --no-cache python3 make g++ sqlite-dev
+RUN apk add --no-cache python3 make g++ sqlite-dev libc6-compat
 
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm install
-RUN npm rebuild better-sqlite3 --build-from-source
+RUN npm install --build-from-source=better-sqlite3 
 
 COPY . .
 RUN npm run build
@@ -25,6 +24,7 @@ ENV HOST=0.0.0.0
 ENV PORT=3000
 ENV DB_PATH=/app/data/roadmap.db
 ENV MIGRATIONS_PATH=/app/server/db/migrations
+ENV npm_config_build_from_source=true
 
 RUN mkdir -p /app/data
 
