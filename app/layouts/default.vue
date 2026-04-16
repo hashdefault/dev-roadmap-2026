@@ -18,6 +18,7 @@ function isActive(item: { to: string }) {
 onMounted(() => {
   initLocale()
 })
+
 </script>
 
 <template>
@@ -44,7 +45,7 @@ onMounted(() => {
               {{ item.label }}
               <span
                 v-if="isActive(item)"
-                class="absolute bottom-0 left-2 right-2 h-[2px] bg-gruvbox-green rounded-full"
+                class=" bottom-0 left-2 right-2 h-[2px] bg-gruvbox-green rounded-full"
               />
             </NuxtLink>
           </nav>

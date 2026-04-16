@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import PillarColumn from '~/components/PillarColumn.vue'
 const router = useRouter()
 const { t } = useI18n()
 const { fetchPillars, fetchTopics, updateProgress } = useTopics()
