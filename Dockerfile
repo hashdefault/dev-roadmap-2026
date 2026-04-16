@@ -9,14 +9,10 @@ ENV npm_config_target_libc=musl
 
 COPY package.json package-lock.json ./
 RUN npm install
-
 RUN npm rebuild better-sqlite3 --build-from-source
 
 COPY . .
 RUN npm run build
-
-# Rebuild again inside Nitro output
-RUN cd .output/server && npm rebuild better-sqlite3 --build-from-source
 
 # ---
 
@@ -26,6 +22,7 @@ RUN apk add --no-cache libc6-compat sqlite-libs
 
 WORKDIR /app
 
+COPY --from=builder /app/node_modules node_modules
 COPY --from=builder /app/.output .output
 COPY --from=builder /app/server/db/migrations server/db/migrations
 

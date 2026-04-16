@@ -47,13 +47,10 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    esbuild: {
-      options: {
-        target: 'esnext',
-      },
-    },
+    externals: {
+      external: ["better-sqlite3"]
+    }
   },
-
   runtimeConfig: {
     dbPath: process.env.DB_PATH || './data/roadmap.db',
   },
