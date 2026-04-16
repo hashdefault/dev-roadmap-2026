@@ -1,26 +1,11 @@
-FROM node:22-slim AS builder
-
-RUN apk add --no-cache python3 make g++ sqlite-dev libc6-compat
-
-WORKDIR /app
-
-ENV npm_config_build_from_source=true
-ENV npm_config_target_libc=musl
-
-COPY package.json package-lock.json ./
-RUN npm install
-RUN npm rebuild better-sqlite3 --build-from-source
-
-COPY . .
-RUN npm run build
-
-# ---
-
 FROM node:22-slim AS runtime
 
-RUN apk add --no-cache libc6-compat sqlite-libs
-
 WORKDIR /app
+
+RUN apt-get update && apt-get install -y \
+    sqlite3 \
+    libsqlite3-0 \
+ && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /app/node_modules node_modules
 COPY --from=builder /app/.output .output
