@@ -195,4 +195,8 @@
   .topic-card.keyboard-active {
     @apply border-gruvbox-yellow bg-gruvbox-bg1 ring-1 ring-gruvbox-yellow/30;
   }
+
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
 }
